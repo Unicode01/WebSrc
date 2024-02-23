@@ -1,0 +1,287 @@
+html {
+    background: linear-gradient(169deg, rgba(227,163,131,1) 41%, rgba(255,166,0,1) 78%, rgba(246,45,0,1) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    cursor: url('../image/cur1.png'),auto;
+    
+}
+
+.ClickDiv {
+    z-index: 999999;
+    background: rgba(255,255,255,0.7);
+    transition: .4s;
+    position: Fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 1;
+    display: block;
+}
+.DrawCur {
+    z-index: 999999;
+    width: 36px;
+    height: 36px;
+    border: 1px solid #cccccc;
+    transition: background-color 0.3s, width 0.3s, height 0.3s;
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+}
+.Main {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    padding: 2% 2% 1% 2%;
+    border-radius:20px;
+    box-shadow: 0 0 0 2px white, 0.3em 0.3em 1em rgb(200 0 0 / 60%);
+}
+.article {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    padding: 1% 2% 1% 2%;
+    background: rgb(251, 158, 51, 0.45);
+    border-radius: 20px;
+    box-shadow: 0 0 0 2px white, 0.3em 0.3em 1em rgb(200 0 0 / 60%);
+}
+.title {
+    margin: auto;
+    text-align: center;
+    color: white;
+    text-shadow: 1px 3px 2px rgba(0, 0, 0, 0.711);
+    transition: .4s;
+    overflow: hidden;
+}
+.title:hover{
+    color: orange;
+}
+.articletitle {
+    font-size: 25px;
+    color: white;
+    text-shadow: 1px 3px 2px rgba(0, 0, 0, 0.711);
+    text-decoration: none;
+    overflow: hidden;
+    margin: 0 auto;
+    
+}
+
+.articletitle_in {
+    font-size: 25px;
+    color: white;
+    text-shadow: 1px 3px 2px rgba(0, 0, 0, 0.711);
+    text-decoration: none;
+    overflow: hidden;
+    margin: 0 auto;
+    padding: 2% 2% 2% 2%;
+    transition: .4s;
+}
+.image {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    display: block;
+    text-align: center;
+    border-radius: 20px;
+    transition: .4s;
+}
+.articleimg {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    display: block;
+    overflow:hidden;
+}
+.articleimg_in {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    display: block;
+    overflow: hidden;
+    transition: .4s;
+}
+.image:hover {
+    -webkit-filter: blur(10px);
+}
+.end_photo_time {
+    font-size: 16px;
+    text-align: right;
+    color: white;
+    text-shadow: 1px 3px 2px rgba(0, 0, 0, 0.711);
+}
+.articlecontent_in {
+    font-size: 20px;
+    color: white;
+    text-shadow: 1px 3px 2px rgba(0, 0, 0, 0.711);
+    text-decoration: none;
+    overflow: hidden;
+    margin: 0 auto;
+    padding: 0% 2% 0% 2%;
+    transition: .2s;
+}
+.nohoverHid:hover {
+    opacity: 1 !important;
+}
+.emphasizeFirst::first-letter{
+    font-size:40px;
+    color:#dddddd;
+}
+
+.articlecontent_in:hover {
+    opacity: 0;
+}
+.articlecontent_in:hover+.hr {
+    opacity: 0;
+}
+.without_padding{
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.show_text {
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    text-shadow: 1px 3px 2px rgba(0, 0, 0, 0.711);
+    position: absolute;
+    transition: .4s;
+}
+.articleimg_in:hover ~ .show_text {
+    opacity: 1 !important;
+    position: absolute;
+    color: red;
+    text-shadow: 1px 3px 2px rgba(255, 255, 255, 0.711);
+}
+.link {
+    cursor: url('../image/cur1.png'),pointer;
+    transition: .4s;
+}
+
+.link:hover {
+    color: #dddddd;
+}
+
+.LoaderMask {
+    position: Fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    transition: 1.5s;
+    opacity: 1;
+}
+.LoaderCircle {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+    transition: 1.5s;
+    opacity: 1;
+    pointer-events: none;
+}
+
+.LoaderCircle div {
+    position: absolute;
+    top: 27px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #FF8513;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.LoaderCircle div:nth-child(1) {
+    left: 6px;
+    animation: load_41 0.6s infinite;
+}
+
+.LoaderCircle div:nth-child(2) {
+    left: 6px;
+    animation: load_42 0.6s infinite;
+ }
+
+.LoaderCircle div:nth-child(3) {
+    left: 26px;
+    animation: load_42 0.6s infinite;
+}
+
+.LoaderCircle div:nth-child(4) {
+    left: 45px;
+    animation: load_43 0.6s infinite;
+}
+
+.smallimg {
+    width: 20px;
+    height: 20px;
+}
+.textcenter {
+    text-align:center;
+}
+
+.SettingButton {
+    position: fixed;
+    display: block;
+    right: 0;
+    top: 25%;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border: 1px solid #cccccc;
+    transition: 1s;
+    background: url('../image/Weather_Snow.svg') no-repeat center rgba(255, 255, 255,0.5);
+    cursor: url('../image/cur1.png'),auto;
+}
+.SettingButton:hover {
+    border: 1px solid #000000;
+ }
+
+
+@keyframes load_41 {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes load_43 {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(0);
+    }
+}
+
+@keyframes load_42 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(19px, 0);
+    }
+}
+
+@keyframes color-change{
+    0%{
+        opacity: 1;
+
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
