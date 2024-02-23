@@ -12,11 +12,6 @@ function isMobile() {
             return flag;
 }
 
-function RemoveDOM(Dom) {
-    Dom.remove();
-    return;
-}
-
 function AddSettingButton() {
     var SettingButton = document.createElement("input");
     SettingButton.type = "button";
@@ -220,8 +215,8 @@ class Snow {
 
                 break
             case 1:
-                this.Xdirection = 1;
-                this.rainOffset = 1;
+                this.Xdirection = parseInt(Math.random() * 10) % 2;
+                this.rainOffset = new Date().getMinutes() % 5 - 2;
                 this.speed = this.getRandom([25, 35])
                 this.flake = '|'
                 break
