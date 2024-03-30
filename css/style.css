@@ -111,6 +111,7 @@ html {
 }
 .image:hover {
     -webkit-filter: blur(10px);
+    filter: blur(10px);
 }
 .end_photo_time {
     font-size: 16px;

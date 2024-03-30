@@ -16,7 +16,7 @@
 			for (let i = 0; i < PlayerDivList.length; i++) {
 				if (isMobile()) {
                     PlayerDivList[i].style.width = '100%';
-                    PlayerDivList[i].style.height = document.documentElement.clientWidth + "px";
+                    PlayerDivList[i].style.height = document.documentElement.clientWidth - 16 + "px";
 				}
 				switch (i) {
 					case 0:
@@ -42,7 +42,7 @@
                 let PlayerDivList = document.querySelectorAll(".MusicPlayer");
 				for (let i = 0; i < PlayerDivList.length; i++) {
                     PlayerDivList[i].style.width = '100%';
-                    PlayerDivList[i].style.height = document.documentElement.clientWidth + "px";
+                    PlayerDivList[i].style.height = document.documentElement.clientWidth - 16 + "px";
 				}
                 
 			}

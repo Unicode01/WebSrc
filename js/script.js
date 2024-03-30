@@ -361,8 +361,10 @@ class Player{
         this.isMuted = false;
         this.isLoop = true;
         this.isLoadMusicOK = false;
+        this.isFirstStart = true;
         this.MusicDuration = 100;
         this.ThreadTimerDelay = 100;
+        this.MusicCoverDeg = 0;
         this.audio = document.createElement("audio");
         this.Music_Title = document.createElement("div");
         this.Music_Progress = document.createElement("div");
@@ -373,6 +375,7 @@ class Player{
         this.Music_MuteBtn = document.createElement("div");
         this.audio.src = this.MusicUrl;
         this.audio.loop = true;
+        this._timer;
 
         this.ChangePlayer_Background();
         this.ChangePlayer_toBox();
@@ -436,6 +439,7 @@ class Player{
         background: no-repeat;
         border-radius: 10px;
         background-image: linear-gradient(90deg, ${this.BtnColor} 0, ${this.BtnColor} 0% , rgba(255,255,255,0.4) 0, rgba(255,255,255,0.4));
+        transition: .4s;
         `;
         this.Music_Cover.style.cssText += `
         position: static;
@@ -445,6 +449,7 @@ class Player{
         background-image: url(${this.MusicCover});
         background-size: cover;
         background-position: center;
+        transition: .4s;
         `;
         this.Music_Title.style.cssText += `
         position: static;
@@ -461,16 +466,19 @@ class Player{
         height: 70%;
         width: 15%;
         order: 1;
+        transition: .4s;
         `;
         this.Music_LoopBtn.style.cssText += `
         height: 70%;
         width: 15%;
         order: 0;
+        transition: .4s;
         `;
         this.Music_MuteBtn.style.cssText += `
         height: 70%;
         width: 15%;
         order: 2;
+        transition: .4s;
         `;
 
         this.Music_PlayBtn.innerHTML = `
@@ -498,7 +506,7 @@ class Player{
         this.audio.addEventListener("canplay", () => {
             this.isLoadMusicOK = true;
             this.MusicDuration = parseInt(this.audio.duration);
-            this.Music_ListenLoop();
+            
         });
 
 
@@ -507,12 +515,16 @@ class Player{
      Music_Play() {
         if (this.isMusicPlaying == false) {
             this.audio.play();
-            this.ThreadTimerDelay = 300;
+            if(this.isFirstStart){
+                this.ThreadTimerDelay = 100;
+                this.Music_ListenLoop();
+            }
+            
             this.Music_PlayBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" focusable="false" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 4.5C6.44772 4.5 6 4.94772 6 5.5V18.5C6 19.0523 6.44772 19.5 7 19.5H9C9.55228 19.5 10 19.0523 10 18.5V5.5C10 4.94772 9.55228 4.5 9 4.5H7ZM15 4.5C14.4477 4.5 14 4.94772 14 5.5V18.5C14 19.0523 14.4477 19.5 15 19.5H17C17.5523 19.5 18 19.0523 18 18.5V5.5C18 4.94772 17.5523 4.5 17 4.5H15Z" fill="${this.BtnColor}"></path></svg>`;
 
         } else {
             this.audio.pause();
-            this.ThreadTimerDelay = 100000;
+            clearInterval(this._timer);
             this.Music_PlayBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="${this.BtnColor}" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" focusable="false" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.6457 10.4384L8.6663 4.75864C8.65924 4.75419 8.65163 4.74975 8.64456 4.74531C8.09402 4.41584 7.4125 4.41807 6.86359 4.75308C6.33098 5.07921 6 5.6798 6 6.31984V17.6788C6 18.3194 6.33098 18.9194 6.86467 19.2467C7.13587 19.4122 7.44565 19.5 7.76087 19.5C8.07174 19.5 8.37772 19.4144 8.6663 19.24L17.6223 13.5752C18.1641 13.2513 18.5 12.648 18.5 11.9996C18.5 11.3534 18.1647 10.7506 17.6457 10.4384Z" fill="${this.BtnColor}"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.6457 10.4384L8.6663 4.75864C8.65924 4.75419 8.65163 4.74975 8.64456 4.74531C8.09402 4.41584 7.4125 4.41807 6.86359 4.75308C6.33098 5.07921 6 5.6798 6 6.31984V17.6788C6 18.3194 6.33098 18.9194 6.86467 19.2467C7.13587 19.4122 7.44565 19.5 7.76087 19.5C8.07174 19.5 8.37772 19.4144 8.6663 19.24L17.6223 13.5752C18.1641 13.2513 18.5 12.648 18.5 11.9996C18.5 11.3534 18.1647 10.7506 17.6457 10.4384Z" fill="${this.BtnColor}"></path></svg>`;
 
         }
@@ -544,15 +556,25 @@ class Player{
         if (this.isLoadMusicOK) {
             this.audio.currentTime = this.MusicDuration * (event.offsetX / this.Music_Progress.clientWidth);
         }
-        console.log(event.offsetX/this.Music_Progress.clientWidth)
+        this.Music_Progress.style.cssText += `
+            background-image: linear-gradient(90deg, ${this.BtnColor} 0, ${this.BtnColor} ${this.audio.currentTime / this.MusicDuration * 100 }%, rgba(255,255,255,0.4) 0 , rgba(255,255,255,0.4));
+        `
+        
     }
     Music_ListenLoop() {
-        let Timer = setInterval(() => {
+        this._timer = setInterval(() => {
+            if(this.isMusicPlaying){
+
+                this.Music_Cover.style.cssText += `
+                transform : rotate(${this.MusicCoverDeg}deg);
+                `
+                this.MusicCoverDeg += 0.7;
+            }
             this.Music_Progress.style.cssText += `
             background-image: linear-gradient(90deg, ${this.BtnColor} 0, ${this.BtnColor} ${this.audio.currentTime / this.MusicDuration * 100 }%, rgba(255,255,255,0.4) 0 , rgba(255,255,255,0.4));
             `
-            console.log(Math.round(this.audio.currentTime / this.MusicDuration * 100))
-            clearInterval(Timer);
+            
+            clearInterval(this._timer);
             this.Music_ListenLoop();
         }, this.ThreadTimerDelay)
     }
