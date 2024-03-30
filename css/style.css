@@ -1,21 +1,23 @@
 html {
-    background: linear-gradient(169deg, rgba(227,163,131,1) 41%, rgba(255,166,0,1) 78%, rgba(246,45,0,1) 100%);
+    background: linear-gradient(169deg, rgba(227, 163, 131, 1) 41%, rgba(255, 166, 0, 1) 78%, rgba(246, 45, 0, 1) 100%);
     background-repeat: no-repeat;
     background-attachment: fixed;
-    cursor: url('../image/cur1.png') 3 3,auto;
-    
+    cursor: url('../image/cur1.png') 3 3, auto;
+
 }
+
 .ClickDiv {
     z-index: 999999;
-    background: rgba(255,255,255,0.7);
+    background: rgba(255, 255, 255, 0.7);
     transition: .4s;
     position: Fixed;
     border-radius: 50%;
     pointer-events: none;
     opacity: 1;
     display: block;
-    
+
 }
+
 .DrawCur {
     z-index: 999999;
     width: 36px;
@@ -25,20 +27,24 @@ html {
     position: fixed;
     border-radius: 50%;
     pointer-events: none;
+    /* transition: .1s; */
 }
+
 .Main {
     width: auto;
     height: auto;
     max-width: 100%;
     max-height: 100%;
     padding: 2% 2% 1% 2%;
-    border-radius:20px;
+    border-radius: 20px;
     box-shadow: 0 0 0 2px white, 0.3em 0.3em 1em rgb(200 0 0 / 60%);
     transition: .4s;
 }
-.Main:hover{
+
+.Main:hover {
     box-shadow: 0 0 0 2px white, 0.8em 0.8em 2em rgb(200 0 0 / 60%);
 }
+
 .article {
     width: auto;
     height: auto;
@@ -50,10 +56,12 @@ html {
     box-shadow: 0 0 0 2px white, 0.3em 0.3em 1em rgb(200 0 0 / 60%);
     transition: .8s;
 }
-.article:hover{
+
+.article:hover {
     box-shadow: 0 0 0 2px white, 0.8em 0.8em 2em rgb(200 0 0 / 60%);
     background: rgba(251, 158, 51, 0.8);
 }
+
 .title {
     margin: auto;
     text-align: center;
@@ -62,9 +70,11 @@ html {
     transition: .4s;
     overflow: hidden;
 }
-.title:hover{
+
+.title:hover {
     color: orange;
 }
+
 .articletitle {
     font-size: 25px;
     color: white;
@@ -72,7 +82,7 @@ html {
     text-decoration: none;
     overflow: hidden;
     margin: 0 auto;
-    
+
 }
 
 .articletitle_in {
@@ -85,6 +95,7 @@ html {
     padding: 2% 2% 2% 2%;
     transition: .4s;
 }
+
 .image {
     max-width: 100%;
     max-height: 100%;
@@ -93,14 +104,18 @@ html {
     text-align: center;
     border-radius: 20px;
     transition: .4s;
+    border-radius: 5px;
 }
+
 .articleimg {
     max-width: 100%;
     max-height: 100%;
     margin: auto;
     display: block;
-    overflow:hidden;
+    overflow: hidden;
+    border-radius: 5px;
 }
+
 .articleimg_in {
     max-width: 100%;
     max-height: 100%;
@@ -108,17 +123,21 @@ html {
     display: block;
     overflow: hidden;
     transition: .4s;
+    border-radius: 5px;
 }
+
 .image:hover {
     -webkit-filter: blur(10px);
     filter: blur(10px);
 }
+
 .end_photo_time {
     font-size: 16px;
     text-align: right;
     color: white;
     text-shadow: 1px 3px 2px rgba(0, 0, 0, 0.711);
 }
+
 .articlecontent_in {
     font-size: 20px;
     color: white;
@@ -129,21 +148,25 @@ html {
     padding: 0% 2% 0% 2%;
     transition: .2s;
 }
+
 .nohoverHid:hover {
     opacity: 1 !important;
 }
-.emphasizeFirst::first-letter{
-    font-size:40px;
-    color:#dddddd;
+
+.emphasizeFirst::first-letter {
+    font-size: 40px;
+    color: #dddddd;
 }
 
 .articlecontent_in:hover {
     opacity: 0;
 }
+
 .articlecontent_in:hover+.hr {
     opacity: 0;
 }
-.without_padding{
+
+.without_padding {
     padding: 0 !important;
     margin: 0 !important;
 }
@@ -156,14 +179,16 @@ html {
     position: absolute;
     transition: .4s;
 }
-.articleimg_in:hover ~ .show_text {
+
+.articleimg_in:hover~.show_text {
     opacity: 1 !important;
     position: absolute;
     color: red;
     text-shadow: 1px 3px 2px rgba(255, 255, 255, 0.711);
 }
+
 .link {
-    cursor: url('../image/cur1.png') 3 3,pointer;
+    cursor: url('../image/cur1.png') 3 3, pointer;
     transition: .4s;
 }
 
@@ -185,6 +210,7 @@ html {
     transition: 1.5s;
     opacity: 1;
 }
+
 .LoaderCircle {
     display: inline-block;
     position: relative;
@@ -213,7 +239,7 @@ html {
 .LoaderCircle div:nth-child(2) {
     left: 6px;
     animation: load_42 0.6s infinite;
- }
+}
 
 .LoaderCircle div:nth-child(3) {
     left: 26px;
@@ -229,8 +255,9 @@ html {
     width: 20px;
     height: 20px;
 }
+
 .textcenter {
-    text-align:center;
+    text-align: center;
 }
 
 .SettingButton {
@@ -245,12 +272,13 @@ html {
     border-bottom-right-radius: 0;
     border: 1px solid #cccccc;
     transition: 1s;
-    background: url('../image/Weather_Snow.svg') no-repeat center rgba(255, 255, 255,0.5);
-    cursor: url('../image/cur1.png') 3 3,auto;
+    background: url('../image/Weather_Snow.svg') no-repeat center rgba(255, 255, 255, 0.5);
+    cursor: url('../image/cur1.png') 3 3, auto;
 }
+
 .SettingButton:hover {
     border: 1px solid #000000;
- }
+}
 
 
 @keyframes load_41 {
@@ -283,14 +311,16 @@ html {
     }
 }
 
-@keyframes color-change{
-    0%{
+@keyframes color-change {
+    0% {
         opacity: 1;
 
     }
+
     50% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }

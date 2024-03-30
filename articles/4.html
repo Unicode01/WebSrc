@@ -3,7 +3,8 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 	<script type="text/javascript" src="../js/script.js"></script>
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	<link rel="icon" href="../image/head100.jpg" type="image/x-icon">
@@ -15,38 +16,38 @@
 			let PlayerDivList = document.querySelectorAll(".MusicPlayer");
 			for (let i = 0; i < PlayerDivList.length; i++) {
 				if (isMobile()) {
-                    PlayerDivList[i].style.width = '100%';
-                    PlayerDivList[i].style.height = document.documentElement.clientWidth - 16 + "px";
+					PlayerDivList[i].style.width = '100%';
+					PlayerDivList[i].style.height = document.documentElement.clientWidth - 16 + "px";
 				}
 				switch (i) {
 					case 0:
-						
-                        new Player(PlayerDivList[i], '../Music/I Really Want to Stay at Your House.flac', '', '../image/Music_1.jpg', "linear-gradient(45deg, #FBDA61 0%, #FF5ACD 100%);", "#DDDDDD", "I Really Want to Stay at Your House");
+
+						new Player(PlayerDivList[i], '../Music/I Really Want to Stay at Your House.flac', '', '../image/Music_1.jpg', "rgba(251, 158, 51, 0.45);", "#DDDDDD", "I Really Want to Stay at Your House");
 						break
 					case 1:
-                        new Player(PlayerDivList[i], '../Music/ヨスガノソラ メインテーマ -遠い空へ-.flac', '', '../image/Music_2.jpg', "linear-gradient(45deg, #FBDA61 0%, #FF5ACD 100%);", "#DDDDDD", "ヨスガノソラ メインテーマ -遠い空へ-");
-                        break
+						new Player(PlayerDivList[i], '../Music/ヨスガノソラ メインテーマ -遠い空へ-.flac', '', '../image/Music_2.jpg', "rgba(251, 158, 51, 0.45);", "#DDDDDD", "ヨスガノソラ メインテーマ -遠い空へ-");
+						break
 					case 2:
-                        new Player(PlayerDivList[i], '../Music/Counter Attack-Mankind (Sasha Version) (Cover).flac', '', '../image/Music_3.jpg', "linear-gradient(45deg, #FBDA61 0%, #FF5ACD 100%);", "#DDDDDD", "Counter Attack-Mankind (Sasha Version) (Cover)");
-                        break
+						new Player(PlayerDivList[i], '../Music/Counter Attack-Mankind (Sasha Version) (Cover).flac', '', '../image/Music_3.jpg', "rgba(251, 158, 51, 0.45);", "#DDDDDD", "Counter Attack-Mankind (Sasha Version) (Cover)");
+						break
 					case 3:
-                        new Player(PlayerDivList[i], '../Music/exile.flac', '', '../image/Music_4.jpg', "linear-gradient(45deg, #FBDA61 0%, #FF5ACD 100%);", "#DDDDDD", "exile");
-                        break
+						new Player(PlayerDivList[i], '../Music/exile.flac', '', '../image/Music_4.jpg', "rgba(251, 158, 51, 0.45);", "#DDDDDD", "exile");
+						break
 					case 1:
 				}
-                
+
 			}
 		});
 		window.addEventListener('resize', (event) => {
 			if (isMobile()) {
-                let PlayerDivList = document.querySelectorAll(".MusicPlayer");
+				let PlayerDivList = document.querySelectorAll(".MusicPlayer");
 				for (let i = 0; i < PlayerDivList.length; i++) {
-                    PlayerDivList[i].style.width = '100%';
-                    PlayerDivList[i].style.height = document.documentElement.clientWidth - 16 + "px";
+					PlayerDivList[i].style.width = '100%';
+					PlayerDivList[i].style.height = document.documentElement.clientWidth - 16 + "px";
 				}
-                
+
 			}
-            console.log(document.documentElement.clientWidth)
+			console.log(document.documentElement.clientWidth)
 		})
 	</script>
 </head>
@@ -60,6 +61,8 @@
 	<div class="MusicPlayer" id="MusicPlayer" style="margin:auto;width:400px;height:400px;"></div>
 	<br>
 	<div class="MusicPlayer" id="MusicPlayer" style="margin:auto;width:400px;height:400px;"></div>
+	<!--ending-->
+	<p class="end_photo_time">Designed By Unicode</p>
 </body>
 
 

@@ -6,10 +6,11 @@ var NowMouseY;
 var TitleMain = '';
 var SetWeather = 2;
 var TimerDelay = 100;
+var _Player_List = [];
 
 function isMobile() {
-            let flag = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            return flag;
+    let flag = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    return flag;
 }
 
 function CreatePhotoViewer(link) {
@@ -18,7 +19,7 @@ function CreatePhotoViewer(link) {
     PhotoContainer.className = "PhotoViewer";
     Photo.className = "PhotoViewer";
     Photo.src = link;
-    PhotoContainer.style.cssText += "position:fixed;background-color:rgba(0,0,0,0.8);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);left:0px;top:0px;height:100%;width:100%;transition: .4s;max-width: 100%;max-height: 100%;display: flex;flex-wrap: wrap;justify-content: center;align-content: center;";
+    PhotoContainer.style.cssText += "position:fixed;background-color:rgba(0,0,0,0.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);left:0px;top:0px;height:100%;width:100%;transition: .4s;max-width: 100%;max-height: 100%;display: flex;flex-wrap: wrap;justify-content: center;align-content: center;";
     Photo.style.cssText += "max-width: 100%;max-height: 100%;margin: auto;display: block;overflow:hidden;"
     document.body.appendChild(PhotoContainer);
     PhotoContainer.appendChild(Photo);
@@ -72,7 +73,7 @@ function AddLoader() {
         var newLoaderMask = document.createElement("div");
         newLoaderMask.id = "LoaderMask";
         newLoaderMask.className = "LoaderMask";
-        
+
         var newLoaderCircle = document.createElement("div");
         newLoaderCircle.className = "LoaderCircle";
         document.body.appendChild(newLoaderMask);
@@ -95,7 +96,7 @@ function StartSnow() {
 
 
 window.addEventListener('load', () => {
-    
+
 
 
 
@@ -108,7 +109,7 @@ window.addEventListener('load', () => {
             StartSnow();
             AddSettingButton();
         } else {
-
+            getSmooth();
         }
 
     } else { //PC
@@ -121,6 +122,7 @@ window.addEventListener('load', () => {
             AddSettingButton();
         } else {
             document.querySelector("body").style.cssText = "overflow: auto;";
+            getSmooth();
         }
 
         var list = document.querySelectorAll(".article")
@@ -141,13 +143,18 @@ window.addEventListener('load', () => {
 
 });
 
+function getSmooth() {
+    const drawcur = document.getElementById("DrawCur");
+    drawcur.style.cssText += "transition: .1s;";
+}
+
 function setTitle(a) {
     var Title = document.querySelector(".title");
     if (a == -1) {
         Title.innerHTML = TitleMain;
         return;
     }
-    Title.innerHTML = TitleMain.slice(0,a) + String.fromCharCode(getRandom([33,125]));
+    Title.innerHTML = TitleMain.slice(0, a) + String.fromCharCode(getRandom([33, 125]));
 };
 
 function getRandom(rangeArray, toFixed) {
@@ -173,13 +180,13 @@ function TitleChanger() {
     for (let a = 0; a < charNum; a++) {
         for (let i = 0; i < charloopTime; i++) {
             setTimeout(() => setTitle(a), init_delay + sleepTime * i + a * (sleepTime * charNum))
-           if (i == charloopTime - 1 & a == charNum -1) {
+            if (i == charloopTime - 1 & a == charNum - 1) {
                 setTimeout(() => setTitle(-1), init_delay + sleepTime * (i + 1) + a * (sleepTime * charNum))
             }
         }
     }
-   
-    
+
+
 };
 
 window.addEventListener('mousedown', (event) => {
@@ -213,6 +220,7 @@ window.addEventListener('mousedown', (event) => {
 });
 
 document.onmousemove = function drawcur(e) {
+
     NowMouseX = e.clientX;
     NowMouseY = e.clientY;
     if (isMobile()) {
@@ -238,7 +246,7 @@ document.onmousemove = function drawcur(e) {
 
 class Snow {
     constructor(el = 'body', flake = '❄') {
-        
+
         this.stage = document.querySelector(el)
         this.snow = document.createElement('span')
         this.flake = flake
@@ -250,7 +258,7 @@ class Snow {
         this.speed = this.getRandom([1, 5])
         this.opacityRange = [0.4, 1]
         this.durationTime = this.getRandom([8000, 11000])
-       
+
         switch (SetWeather) {
             case 0:
 
@@ -272,7 +280,7 @@ class Snow {
         } else {
             this.destroy()
         }
-        
+
     }
     style() {
         return `color: ${this.color};
@@ -348,8 +356,8 @@ class Snow {
     }
 };
 
-class Player{
-    constructor(El, src, irc, cover , mainColor ,btncolor,Title) {
+class Player {
+    constructor(El, src, irc, cover, mainColor, btncolor, Title) {
         this.Element = El;
         this.MusicUrl = src;
         this.MusicCover = cover;
@@ -380,10 +388,11 @@ class Player{
         this.ChangePlayer_Background();
         this.ChangePlayer_toBox();
         this.Create_Player();
+        _Player_List.push(this);
     }
 
     ChangePlayer_Background() {
-       
+
         this.Element.style.cssText += `
         background: ${this.MainColor} no-repeat center;
         background-size: 100% 100%;
@@ -506,20 +515,41 @@ class Player{
         this.audio.addEventListener("canplay", () => {
             this.isLoadMusicOK = true;
             this.MusicDuration = parseInt(this.audio.duration);
-            
+
+        });
+        this.audio.addEventListener('ended', () => {
+
+            for (let i = 0; i < _Player_List.length; i++) {
+
+                if (_Player_List[i].Element == this.Element && i < _Player_List.length - 1) {
+                    if (_Player_List[i + 1].isLoop) {
+                        _Player_List[i + 1].Music_Loop();
+                    }
+                    _Player_List[i + 1].Music_Play();
+                    break;
+                }
+                if (i == _Player_List.length - 1 && _Player_List.length > 0) {
+                    if (_Player_List[0].isLoop) {
+                        _Player_List[0].Music_Loop();
+                    }
+                    _Player_List[0].Music_Play();
+                    break;
+                }
+            }
+            this.Music_Play();
         });
 
 
     }
 
-     Music_Play() {
+    Music_Play() {
         if (this.isMusicPlaying == false) {
             this.audio.play();
-            if(this.isFirstStart){
+            if (this.isFirstStart) {
                 this.ThreadTimerDelay = 100;
                 this.Music_ListenLoop();
             }
-            
+
             this.Music_PlayBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" focusable="false" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 4.5C6.44772 4.5 6 4.94772 6 5.5V18.5C6 19.0523 6.44772 19.5 7 19.5H9C9.55228 19.5 10 19.0523 10 18.5V5.5C10 4.94772 9.55228 4.5 9 4.5H7ZM15 4.5C14.4477 4.5 14 4.94772 14 5.5V18.5C14 19.0523 14.4477 19.5 15 19.5H17C17.5523 19.5 18 19.0523 18 18.5V5.5C18 4.94772 17.5523 4.5 17 4.5H15Z" fill="${this.BtnColor}"></path></svg>`;
 
         } else {
@@ -557,13 +587,13 @@ class Player{
             this.audio.currentTime = this.MusicDuration * (event.offsetX / this.Music_Progress.clientWidth);
         }
         this.Music_Progress.style.cssText += `
-            background-image: linear-gradient(90deg, ${this.BtnColor} 0, ${this.BtnColor} ${this.audio.currentTime / this.MusicDuration * 100 }%, rgba(255,255,255,0.4) 0 , rgba(255,255,255,0.4));
+            background-image: linear-gradient(90deg, ${this.BtnColor} 0, ${this.BtnColor} ${this.audio.currentTime / this.MusicDuration * 100}%, rgba(255,255,255,0.4) 0 , rgba(255,255,255,0.4));
         `
-        
+
     }
     Music_ListenLoop() {
         this._timer = setInterval(() => {
-            if(this.isMusicPlaying){
+            if (this.isMusicPlaying) {
 
                 this.Music_Cover.style.cssText += `
                 transform : rotate(${this.MusicCoverDeg}deg);
@@ -571,9 +601,9 @@ class Player{
                 this.MusicCoverDeg += 0.7;
             }
             this.Music_Progress.style.cssText += `
-            background-image: linear-gradient(90deg, ${this.BtnColor} 0, ${this.BtnColor} ${this.audio.currentTime / this.MusicDuration * 100 }%, rgba(255,255,255,0.4) 0 , rgba(255,255,255,0.4));
+            background-image: linear-gradient(90deg, ${this.BtnColor} 0, ${this.BtnColor} ${this.audio.currentTime / this.MusicDuration * 100}%, rgba(255,255,255,0.4) 0 , rgba(255,255,255,0.4));
             `
-            
+
             clearInterval(this._timer);
             this.Music_ListenLoop();
         }, this.ThreadTimerDelay)
