@@ -1,4 +1,4 @@
-﻿var isCurIn = false;
+var isCurIn = false;
 var isCurInLink = false;
 var ClickDiv;
 var NowMouseX;
@@ -7,6 +7,7 @@ var TitleMain = '';
 var SetWeather = 2;
 var TimerDelay = 100;
 var _Player_List = [];
+
 
 function isMobile() {
     let flag = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -37,26 +38,41 @@ function AddSettingButton() {
     SettingButton.className = "SettingButton link";
     SettingButton.onclick = SettingButton_onclick;
     document.body.appendChild(SettingButton);
+    Weather_Reset(SetWeather);
 }
-function SettingButton_onclick(event) {
+function Weather_Reset(Weather) {
     var SettingButton = document.querySelector(".SettingButton");
-    switch (SetWeather) {
-        case 0: //晴天 设置为雨天
-            SetWeather += 1;
+    switch (Weather) {
+        case 2: //雨天
             SettingButton.style.cssText = "background: url('image/Weather_Rain.svg') no-repeat center rgba(255, 255, 255,0.5);";
             TimerDelay = 30;
             break;
-        case 1: //雨天 设置为雪天
-            SetWeather += 1;
+        case 3: //雪天
             SettingButton.style.cssText = "background: url('image/Weather_Snow.svg') no-repeat center rgba(255, 255, 255,0.5);";
             TimerDelay = 100;
             break;
-        case 2: //雪天 设置为晴天
-            SetWeather = 0;
+        case 1: //晴天
             SettingButton.style.cssText = "background: url('image/Weather_Sunny.svg') no-repeat center rgba(255, 255, 255,0.5);";
             break;
     }
-    console.log(SetWeather)
+}
+function SettingButton_onclick(event) {
+    switch (SetWeather) {
+        case 1: //晴天 设置为雨天
+            SetWeather += 1;
+            break;
+        case 2: //雨天 设置为雪天
+            SetWeather += 1;
+            break;
+        case 3: //雪天 设置为晴天
+            SetWeather = 1;
+            break;
+    }
+    Weather_Reset(SetWeather);
+
+    //设置存储
+    new Local_Config().SetConfig('Web_Weather', String(SetWeather));
+
 }
 
 function RemoveLoader() {
@@ -96,9 +112,10 @@ function StartSnow() {
 
 
 window.addEventListener('load', () => {
-
-
-
+    SetWeather = parseInt(new Local_Config().GetConfig('Web_Weather'));
+    if (!SetWeather) {
+        SetWeather = 3;
+    }
 
     if (isMobile()) {
         var pathname = window.location.pathname;
@@ -145,7 +162,7 @@ window.addEventListener('load', () => {
 
 function getSmooth() {
     const drawcur = document.getElementById("DrawCur");
-    drawcur.style.cssText += "transition: .1s;";
+    drawcur.style.cssText += "transition: background-color 0.3s, width 0.3s, height 0.3s, left 0.1s, top 0.1s;";
 }
 
 function setTitle(a) {
@@ -260,22 +277,22 @@ class Snow {
         this.durationTime = this.getRandom([8000, 11000])
 
         switch (SetWeather) {
-            case 0:
+            case 1:
 
                 break
-            case 1:
+            case 2:
                 this.Xdirection = parseInt(Math.random() * 10) % 2;
                 this.rainOffset = new Date().getMinutes() % 5 - 2;
                 this.speed = this.getRandom([25, 35])
                 this.flake = '|'
                 break
-            case 2:
+            case 3:
                 this.Xdirection = parseInt(Math.random() * 10) % 2
                 this.flake = '❄'
                 break
         }
         this.render()
-        if (SetWeather != 0) {
+        if (SetWeather != 1) {
             this.autoDestroy()
         } else {
             this.destroy()
@@ -418,17 +435,18 @@ class Player {
 
         this.Music_Controller.className = 'MusicController';
         this.Music_Title.className = 'MusicTitle';
-        this.Music_Progress.className = 'MusicProgress link';
+        this.Music_Progress.className = 'MusicProgress';
         this.Music_Cover.className = 'MusicCover';
-        this.Music_PlayBtn.className = 'PlayBtn link';
-        this.Music_LoopBtn.className = 'LoopBtn link';
-        this.Music_MuteBtn.className = 'MuteBtn link';
+        this.Music_PlayBtn.className = 'PlayBtn';
+        this.Music_LoopBtn.className = 'LoopBtn';
+        this.Music_MuteBtn.className = 'MuteBtn';
 
         this.Element.style.cssText += `
         display: -webkit-flex; /* Safari */
         display: flex;
         flex-direction: column-reverse;
         align-items: center;
+        justify-content: space-between;
         `;
         this.Music_Controller.style.cssText += `
         position: static;
@@ -456,6 +474,7 @@ class Player {
         height: 70%;
         border-radius: 50%;
         background-image: url(${this.MusicCover});
+        background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
         transition: .4s;
@@ -464,12 +483,13 @@ class Player {
         position: static;
         width:100%;
         white-space:nowrap;
-        height: 10%;
+        height: 8%;
         font-size: ${this.Element.clientHeight / 20}px;
         text-shadow: 1px 3px 2px rgba(0, 0, 0, 0.711);
         color: ${this.BtnColor};
         text-align: center;
         overflow: hidden;
+        padding: 3% 0 0 0;
         `;
         this.Music_PlayBtn.style.cssText += `
         height: 70%;
@@ -512,6 +532,33 @@ class Player {
         this.Music_Progress.addEventListener('click', (event) => {
             this.Music_ChangeProgress(event);
         });
+
+        this.Music_PlayBtn.addEventListener("mouseover", function () {
+            isCurInLink = true;
+        });
+        this.Music_PlayBtn.addEventListener("mouseout", function () {
+            isCurInLink = false;
+        });
+        this.Music_MuteBtn.addEventListener("mouseover", function () {
+            isCurInLink = true;
+        });
+        this.Music_MuteBtn.addEventListener("mouseout", function () {
+            isCurInLink = false;
+        });
+        this.Music_LoopBtn.addEventListener("mouseover", function () {
+            isCurInLink = true;
+        });
+        this.Music_LoopBtn.addEventListener("mouseout", function () {
+            isCurInLink = false;
+        });
+        this.Music_Progress.addEventListener("mouseover", function () {
+            isCurInLink = true;
+        });
+        this.Music_Progress.addEventListener("mouseout", function () {
+            isCurInLink = false;
+        });
+
+
         this.audio.addEventListener("canplay", () => {
             this.isLoadMusicOK = true;
             this.MusicDuration = parseInt(this.audio.duration);
@@ -537,6 +584,10 @@ class Player {
                 }
             }
             this.Music_Play();
+            this.MusicCoverDeg = 0;
+            this.Music_Cover.style.cssText += `
+                transform : rotate(${this.MusicCoverDeg}deg);
+                `
         });
 
 
@@ -609,3 +660,41 @@ class Player {
         }, this.ThreadTimerDelay)
     }
 };
+
+class Local_Config {
+    constructor(method = 0) {
+        this.method = method;
+    }
+    SetConfig(key, value) {
+        switch (this.method) {
+            case 0:
+                localStorage.setItem(key, value);
+                break
+
+        }
+
+    }
+    GetConfig(key) {
+
+        switch (this.method) {
+            case 0:
+
+                return localStorage.getItem(key);
+
+
+        }
+        return ''
+    }
+    ClearAllConfigs() {
+        switch (this.method) {
+            case 0:
+                localStorage.clear();
+        }
+    }
+    RemoveConfig(key) {
+        switch (this.method) {
+            case 0:
+                localStorage.removeItem(key);
+        }
+    }
+}

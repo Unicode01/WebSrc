@@ -3,11 +3,34 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/api.js"></script>
+    <script type="text/javascript" src="js/Animations.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="icon" href="image/head100.jpg" type="image/x-icon">
     <title>UN1C0DE的秘密树洞</title>
+    <script>
+        window.onload = function () {
+            let AllRequestBox = document.querySelector('#AllRequestsCount');
+            let DailyRequestBox = document.querySelector('#DailyRequestsCount');
+            let ApiSystemRunningTime = document.querySelector('#ApiSystemRunningTime');
+            let ApiServerStatus = document.querySelector('#ApiServerStatus');
+            let RequestsCount = getRequests();
+            let Systeminfo = getSystemInfo();
+            AllRequestBox.innerHTML = RequestsCount.AllRequests;
+            DailyRequestBox.innerHTML = RequestsCount.DailyRequests;
+            ApiSystemRunningTime.innerHTML = Systeminfo.ServerRunningTime;
+            ApiServerStatus.innerHTML = Systeminfo.System;
+
+            let Animation_slide_in_ = new Animations_v_slide_in();
+            let v_slide_in_els = document.querySelectorAll('.v_slide_in');
+            v_slide_in_els.forEach(element => {
+                Animation_slide_in_.SetSlideInEl_mounted(element);
+            });
+        }
+    </script>
 </head>
 
 <body style="overflow:hidden;">
@@ -15,7 +38,10 @@
     <div class="DrawCur" id="DrawCur" style="display: none"></div>
     <div class="LoaderMask" id="LoaderMask">
         <div class="LoaderCircle">
-            <div></div><div></div><div></div><div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
 
     </div>
@@ -23,20 +49,21 @@
 
     <!--主体-->
     <div class="Main">
-        <img class="image" src="image/head640.jpg" />
+        <img class="image v_slide_in" src="image/head640.jpg" />
         <h2 class="title">UN1C0DE的秘密树洞</h2>
         <p class="title">
             <a class="link" href="//github.com/Unicode01"><img class="smallimg" src="image/github.png" /></a>
             <a class="link" href="//space.bilibili.com/542831531"><img class="smallimg" src="image/bilibili.ico" /></a>
             <a class="link" href="//t.me/UN1C0DE_CN"><img class="smallimg" src="image/tg.ico" /></a>
-            <a class="link" href="//steamcommunity.com/profiles/76561199192785244/"><img class="smallimg" src="image/steam.ico" /></a>
+            <a class="link" href="//steamcommunity.com/profiles/76561199192785244/"><img class="smallimg"
+                    src="image/steam.ico" /></a>
         </p>
     </div>
 
     <br />
 
     <!--联系簿-->
-    <div class="article">
+    <div class="article v_slide_in">
         <a class="articletitle link" href="articles/2.html">为那些重要的人......</a>
         <img class="articleimg" src="image/2_compressed.jpg" />
 
@@ -44,20 +71,20 @@
     <br />
 
     <!--Lover~-->
-    <div class="article">
+    <div class="article v_slide_in">
         <a class="articletitle link" href="articles/3.html">我所喜爱的......</a>
         <img class="articleimg" src="image/3_compressed.jpg" />
 
     </div>
     <br />
     <!--相册-->
-    <div class="article">
+    <div class="article v_slide_in">
         <a class="articletitle link" href="articles/1.html">Unicode的Online相册</a>
         <img class="articleimg" src="image/1_compressed.png" />
     </div>
     <br />
     <!--八音盒-->
-    <div class="article">
+    <div class="article v_slide_in">
         <a class="articletitle link" href="articles/4.html">Unicode的音乐集</a>
         <img class="articleimg" src="image/4_compressed.png" />
     </div>
@@ -65,22 +92,41 @@
     <br />
 
     <!--友链-->
-    <div class="article">
+    <div class="article v_slide_in">
         <p class="articletitle" style="text-align:center;font-size: 24px;">友链</p>
-        <p class="without_padding" style="text-align: center;"><a class="articletitle link" href="//omn.cc" style="text-align:center; font-size: 18px;">♥指针的Blog♥</a></p>
+        <p class="without_padding" style="text-align: center;"><a class="articletitle link" href="//omn.cc"
+                style="text-align:center; font-size: 18px;">♥指针的Blog♥</a></p>
 
 
     </div>
     <br />
     <!--鸣谢-->
-    <div class="article">
+    <div class="article v_slide_in">
         <p class="articletitle" style="text-align:center;font-size: 24px;">鸣谢</p>
         <p class="articletitle without_padding" style="text-align: center; font-size: 18px;">HandsomeWang</p>
-        <p class="without_padding" style="text-align: center;"><a class="articletitle link" href="//tailwindcss.com/" style="text-align:center; font-size: 18px;">Tailwind css</a></p>
+        <p class="without_padding" style="text-align: center;"><a class="articletitle link" href="//tailwindcss.com/"
+                style="text-align:center; font-size: 18px;">Tailwind css</a></p>
+        <p class="without_padding" style="text-align: center;"><a class="articletitle link" href="//cloudflare.com/"
+                style="text-align:center; font-size: 18px;">CloudFlare</a></p>
+
+
+
 
 
     </div>
+    <br />
     <!--ending-->
+    <div class="article apibox v_slide_in">
+        <p class="articletitle" style="text-align:center;font-size: 18px;">api系统信息： <span id="ApiServerStatus"></span>
+        </p>
+        <p class="articletitle" style="text-align:center;font-size: 18px;">api系统运行时间： <span
+                id="ApiSystemRunningTime"></span>
+        </p>
+        <p class="articletitle" style="text-align:center;font-size: 18px;">今日访问次数： <span id="DailyRequestsCount"></span>
+        </p>
+        <p class="articletitle" style="text-align:center;font-size: 18px;">总访问次数： <span id="AllRequestsCount"></span>
+        </p>
+    </div>
     <p class="end_photo_time">Designed By Unicode</p>
 </body>
 

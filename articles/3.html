@@ -6,6 +6,16 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <script type="text/javascript" src="../js/script.js"></script>
+    <script type="text/javascript" src="../js/Animations.js"></script>
+    <script>
+        window.onload = function () {
+            let Animation_slide_in_ = new Animations_v_slide_in();
+            let v_slide_in_els = document.querySelectorAll('.v_slide_in');
+            v_slide_in_els.forEach(element => {
+                Animation_slide_in_.SetSlideInEl_mounted(element);
+            });
+        }
+    </script>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="icon" href="../image/head100.jpg" type="image/x-icon">
     <title>ありがとう、私の暗い世界の小さな太陽</title>
@@ -13,7 +23,7 @@
 
 <body>
     <div class="DrawCur" id="DrawCur" style="display: none"></div>
-    <div class="article">
+    <div class="article v_slide_in">
         <p class="articletitle_in textcenter">四月是你的谎言(四月は君の嘘)</p>
         <p class="articlecontent_in nohoverHid emphasizeFirst">
             还是忘不了19年看这部番时候哭的样子,然后...到现在也想找一个会小提琴的对象,毕竟钢琴和小提琴尊嘟可以有很多能合奏的曲子...</p>
@@ -22,14 +32,14 @@
         <p class="end_photo_time">2024.2.17</p>
     </div>
     <br />
-    <div class="article">
+    <div class="article v_slide_in">
         <p class="articletitle_in textcenter">明日方舟(Arknights)</p>
         <p class="articlecontent_in nohoverHid emphasizeFirst">嘿嘿嘿小羊好可爱嘿嘿嘿,甜妹什么的最喜欢了</p>
         <img class="articleimg_in" src="../image/3_2_compressed.jpg" />
         <p class="end_photo_time">2024.2.17</p>
     </div>
     <br />
-    <div class="article">
+    <div class="article v_slide_in">
         <p class="articletitle_in textcenter">崩坏: 星穹铁道(Honkai: Star Rail)</p>
         <p class="articlecontent_in nohoverHid emphasizeFirst">看完剧情之前: 知更鸟也太戳我xp了</p>
         <p class="articlecontent_in nohoverHid emphasizeFirst">看完剧情之后: 要什么知更鸟,流萤yyds</p>
@@ -37,7 +47,7 @@
         <p class="end_photo_time">2024.2.17</p>
     </div>
     <br />
-    <div class="article">
+    <div class="article v_slide_in">
         <p class="articletitle_in textcenter">一个人呆着</p>
         <p class="articlecontent_in nohoverHid emphasizeFirst">作为INFP,从来不喜欢在人多的地方多呆哪怕一秒钟,不然会浑身难受</p>
         <p class="articlecontent_in nohoverHid emphasizeFirst">喜欢一个人呆着,做点自己喜欢的事情,然后就会感到满足,大概也是和别人不一样的一点吧</p>

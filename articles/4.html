@@ -6,6 +6,16 @@
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 	<script type="text/javascript" src="../js/script.js"></script>
+	<script type="text/javascript" src="../js/Animations.js"></script>
+	<script>
+		window.onload = function () {
+			let Animation_slide_in_ = new Animations_v_slide_in();
+			let v_slide_in_els = document.querySelectorAll('.v_slide_in');
+			v_slide_in_els.forEach(element => {
+				Animation_slide_in_.SetSlideInEl_mounted(element);
+			});
+		}
+	</script>
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	<link rel="icon" href="../image/head100.jpg" type="image/x-icon">
 	<title>UN1C0DE的音乐集</title>
@@ -33,7 +43,14 @@
 					case 3:
 						new Player(PlayerDivList[i], '../Music/exile.flac', '', '../image/Music_4.jpg', "rgba(251, 158, 51, 0.45);", "#DDDDDD", "exile");
 						break
-					case 1:
+					case 4:
+						new Player(PlayerDivList[i], '../Music/Take Me Hand.flac', '', '../image/Music_5.jpg', "rgba(251, 158, 51, 0.45);", "#DDDDDD", "Take Me Hand");
+						break
+					case 5:
+						new Player(PlayerDivList[i], '../Music/Sacred Play Secret Place.flac', '', '../image/Music_6.jpg', "rgba(251, 158, 51, 0.45);", "#DDDDDD", "Sacred Play Secret Place");
+						break
+					case 6:
+
 				}
 
 			}
@@ -54,13 +71,15 @@
 
 <body>
 	<div class="DrawCur" id="DrawCur" style="display: none"></div>
-	<div class="MusicPlayer" id="MusicPlayer" style="margin:auto;width:400px;height:400px;"></div>
-	<br>
-	<div class="MusicPlayer" id="MusicPlayer" style="margin:auto;width:400px;height:400px;"></div>
-	<br>
-	<div class="MusicPlayer" id="MusicPlayer" style="margin:auto;width:400px;height:400px;"></div>
-	<br>
-	<div class="MusicPlayer" id="MusicPlayer" style="margin:auto;width:400px;height:400px;"></div>
+	<div class="Container" id="Container" style="display: flex;flex-wrap:wrap;gap: 40px 10px;">
+		<div class="MusicPlayer v_slide_in" id="MusicPlayer" style="margin:auto;width:400px;height:400px;"></div>
+		<div class="MusicPlayer v_slide_in" id="MusicPlayer" style="margin:auto;width:400px;height:400px;"></div>
+		<div class="MusicPlayer v_slide_in" id="MusicPlayer" style="margin:auto;width:400px;height:400px;"></div>
+		<div class="MusicPlayer v_slide_in" id="MusicPlayer" style="margin:auto;width:400px;height:400px;"></div>
+		<div class="MusicPlayer v_slide_in" id="MusicPlayer" style="margin:auto;width:400px;height:400px;"></div>
+		<div class="MusicPlayer v_slide_in" id="MusicPlayer" style="margin:auto;width:400px;height:400px;"></div>
+	</div>
+
 	<!--ending-->
 	<p class="end_photo_time">Designed By Unicode</p>
 </body>
